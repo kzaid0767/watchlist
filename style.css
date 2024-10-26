@@ -17,7 +17,23 @@ header{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 5vw;
+    padding: 1rem 0;
+}
+
+.header-text{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-self: center;
+    width: 80vw;
+    margin: 0 auto;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+    font-family: inherit;
+    cursor: pointer;
 }
 
 form{
@@ -31,7 +47,7 @@ form{
 
 input{
     border: none;
-    width: 40vw;
+    width: 44vw;
     min-width: calc(0.4*330px);
 }
 
@@ -43,7 +59,7 @@ label{
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     border-left: 1px solid #6B7280;
-    width: 10vw;
+    width: 12vw;
     min-width: calc(0.1*330px);
 }
 
@@ -65,11 +81,89 @@ button{
     background-color: #F9FAFB;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    width: 22vw;
+    width: 24vw;
     min-width: calc(0.22*330px);
 }
 
 button:hover,
 input:hover{
     cursor: pointer;
+}
+
+
+
+section{
+    width: 90vw;
+    margin:1rem auto;
+}
+
+.tempDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #DFDDDD;
+    padding-top: 6rem;
+}
+
+.each-movie{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px #E5E7EB solid;
+    margin-bottom: 1rem;
+}
+
+.each-movie  h3,
+.each-movie p{
+    margin: 0;
+    font-size: 2.3vw;
+}
+
+.movie-details{
+    padding: 1rem;
+    font-family: inherit;
+}
+.top{
+    display: flex;
+    align-items: center;
+}
+
+.top p{
+    color: #111827;
+}
+
+.fa-star{
+    color: #FEC654;
+    margin: 0 0.5rem;
+    cursor: pointer;
+    font-size: 2.2vw;
+}
+
+.mid{
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0;
+    color: #111827;
+}
+.fa-circle-plus,
+.fa-circle-minus{
+    margin-right: 0.3rem;
+    cursor: pointer;
+}
+
+p#genre{
+    margin:0 0.7rem;
+}
+
+.bottom{
+    color: #6B7280;
+}
+
+.pic-holder{
+    height: 9rem;
+    /* width: 15rem; */
+    
+}
+.pic-holder img{
+    height: 95%;
 }
