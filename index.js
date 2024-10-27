@@ -25,13 +25,20 @@ function handleFetch(e) {
     detailedArr = []
     const formdata = new FormData(form)
     const name = formdata.get('name')
+    form.reset()
     fetch(`https://www.omdbapi.com/?apikey=${apiKey}&s=${name}`)
-        .then(res => res.json())
+        .then(res => {
+            if(!res.ok){
+                throw new Error("Something went wrong. Please try again");
+                
+            }
+            return res.json()
+        })
         .then(data =>{
-            if(data.Response){
-                getMovieDetail(data.Search)
-                } else{
-                    alert(`${data.Error} Please try another search`)
+            if(data.Response==='False'){
+                alert(`${data.Error} Please try another search`)
+            } else{
+                    getMovieDetail(data.Search)
                 }})
         .catch(err=> resultsContainer.innerHTML = `
                 <div class="tempDiv">
@@ -65,6 +72,7 @@ function handleClick(e){
         let obj = detailedArr.filter(movie =>  movie.imdbID ===add)[0]
         tempArr.unshift(obj)
         localStorage.setItem("movies",JSON.stringify(tempArr))
+        alert('Your movie was added to your watchlist')
     }
     if(remove){
         tempArr = tempArr.filter(movie =>  movie.imdbID !== remove)

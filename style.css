@@ -47,6 +47,7 @@ input{
     border: none;
     width: 44vw;
     min-width: calc(0.4*330px);
+    border-radius: 0px;
 }
 
 label{
@@ -87,8 +88,6 @@ button:hover,
 input:hover{
     cursor: pointer;
 }
-
-
 
 section{
     width: 90vw;
