@@ -1,18 +1,23 @@
 const form = document.querySelector('#form')
 const resultsContainer = document.querySelector('#results')
 const watchlistContainer = document.querySelector('#watchlist')
+const watchlistPage = document.getElementById('watchlistBody')
 
 const apiKey = '6910ebc2'
 
 let tempArr = JSON.parse(localStorage.getItem("movies")) ? JSON.parse(localStorage.getItem("movies")) :[]
 let detailedArr = []
 
+//renders movies from localstorage if available
 if(watchlistContainer){
-    console.log(tempArr)
-    render(tempArr)
+    if(tempArr.length){
+        render(tempArr)
+    }
 }
 
-form.addEventListener('submit',handleFetch)
+if(form){
+    form.addEventListener('submit',handleFetch)
+}
 
 //Gets the search results
 function handleFetch(e) {
@@ -28,7 +33,12 @@ function handleFetch(e) {
                 } else{
                     alert(`${data.Error} Please try another search`)
                 }})
-        .catch(err=> console.log(err))
+        .catch(err=> resultsContainer.innerHTML = `
+                <div class="tempDiv">
+                    <p>Unable to complete the search. Please try another search.</p>
+                </div>
+            
+            `)
     
 }
 
@@ -45,11 +55,20 @@ async function getMovieDetail(arr){
 
 //Event listeners to add and remove from local storage
 document.addEventListener('click',handleClick)
+if(watchlistPage){
+    watchlistPage.addEventListener('click', handleClick)
+}
 function handleClick(e){
-    let id = e.target.dataset.add
-    if(id){
-        let obj = detailedArr.filter(movie =>  movie.imdbID ===id)[0]
+    let add = e.target.dataset.add
+    let remove = e.target.dataset.remove
+    if(add){
+        let obj = detailedArr.filter(movie =>  movie.imdbID ===add)[0]
         tempArr.unshift(obj)
+        localStorage.setItem("movies",JSON.stringify(tempArr))
+    }
+    if(remove){
+        tempArr = tempArr.filter(movie =>  movie.imdbID !== remove)
+        render(tempArr)
         localStorage.setItem("movies",JSON.stringify(tempArr))
     }
 }
@@ -58,30 +77,41 @@ function handleClick(e){
 function render(arr){
     let htmlString=''
     if(watchlistContainer){
-        htmlString = arr.map(movie => `
-                    <div class="each-movie">
-                        <div class="pic-holder">
-                            <img src="${movie.Poster}" alt="a poster of ${movie.Title}">
-                        </div>
-                        <div class="movie-details">
-                            <div class="top">
-                                <h3>${movie.Title}</h3>
-                                <i class="fa-solid fa-star"></i>
-                                <p>${movie.imdbRating}</p>
-                            </div>
-                            <div class="mid">
-                                <p>${movie.Runtime}</p>
-                                <p id="genre">${movie.Genre}</p>
-                                <i class="fa-solid fa-circle-minus" data-remove="${movie.imdbID}"></i>
-                                <p>Watchlist</p>
-                            </div>
-                            <div class="bottom">
-                                <p>${movie.Plot}</p>
-                            </div>
-                        </div>
+        if(!arr.length){
+            htmlString = `
+                <div class="tempDiv">
+                    <p>Your watchlist is empty</p>
+                    <div class="emptyList">
+                        <a href="./index.html"> <i class="fa-solid fa-circle-plus"></i> Let's add some movies!</a>
                     </div>
-            `).join('')
-            watchlistContainer.innerHTML = htmlString
+                </div>
+            `
+        }else {
+            htmlString = arr.map(movie => `
+                        <div class="each-movie">
+                            <div class="pic-holder">
+                                <img src="${movie.Poster}" alt="a poster of ${movie.Title}">
+                            </div>
+                            <div class="movie-details">
+                                <div class="top">
+                                    <h3>${movie.Title}</h3>
+                                    <i class="fa-solid fa-star"></i>
+                                    <p>${movie.imdbRating}</p>
+                                </div>
+                                <div class="mid">
+                                    <p>${movie.Runtime}</p>
+                                    <p id="genre">${movie.Genre}</p>
+                                    <i class="fa-solid fa-circle-minus" data-remove="${movie.imdbID}"></i>
+                                    <p>Watchlist</p>
+                                </div>
+                                <div class="bottom">
+                                    <p>${movie.Plot}</p>
+                                </div>
+                            </div>
+                        </div>
+                `).join('')
+        }
+        watchlistContainer.innerHTML = htmlString
     } 
     if(resultsContainer){
         htmlString = arr.map(movie => `

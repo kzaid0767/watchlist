@@ -39,9 +39,7 @@ a{
 form{
     display: flex;
     margin: -1.2rem auto 0;
-    
     width:fit-content;
-    /* background-color: #FFFFFF; */
     height: 2.375rem;
 }
 
@@ -95,6 +93,7 @@ input:hover{
 section{
     width: 90vw;
     margin:1rem auto;
+
 }
 
 .tempDiv{
@@ -105,11 +104,16 @@ section{
     color: #DFDDDD;
     padding-top: 6rem;
 }
+.emptyList{
+    color: #363636;
+    font-size: 0.7rem;
+}
 
 .each-movie{
     display: flex;
     align-items: center;
     border-bottom: 1px #E5E7EB solid;
+    padding-bottom: 0.5rem;
     margin-bottom: 1rem;
 }
 
