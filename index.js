@@ -25,7 +25,7 @@ function handleFetch(e) {
     detailedArr = []
     const formdata = new FormData(form)
     const name = formdata.get('name')
-    fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${name}`)
+    fetch(`https://www.omdbapi.com/?apikey=${apiKey}&s=${name}`)
         .then(res => res.json())
         .then(data =>{
             if(data.Response){
@@ -45,7 +45,7 @@ function handleFetch(e) {
 //Fetches movie details from API
 async function getMovieDetail(arr){
     for(let el of arr){
-        const res = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&i=${el.imdbID}`)
+        const res = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${el.imdbID}`)
         const data = await res.json()
         detailedArr.push(data)
     }   
